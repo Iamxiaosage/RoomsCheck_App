@@ -14,7 +14,7 @@ import com.example.checkrooms_app.adapter.RoomsRvAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.StringBuilder
 
-
+//datatrue
 class MainActivity : AppCompatActivity() {
 
       lateinit var roomsRvAdapter:RoomsRvAdapter;
@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
             R.id.show -> {
-
                 val builder = AlertDialog.Builder(this);
                 builder.setTitle("rooms巡检信息：")
                 val editText = EditText(this);
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-//                editText.setText(roomsList.toString());
                 editText.setText(msg);
 
                 builder.setView(editText);

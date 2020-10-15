@@ -51,21 +51,22 @@ import com.example.checkrooms_app.bean.RoomsInfo
         val mRoom:RoomsInfo = mRoomsList?.get(pos)!!;
 
         cb_Ishold.setChecked(mRoom?.isHold);
-        tv_Roomsid.text = mRoomsList!![pos].roomsId.toString()
+        tv_Roomsid.setText(mRoom?.roomsId)
         et_Note.setText(mRoom?.note!!);
 
         cb_Ishold.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, is_checked: Boolean) {
-                var mRoomsInfo = mRoomsList ?.get(pos);
-                mRoomsInfo?.isHold=is_checked;
+
+
+                mRoom?.isHold=is_checked;
 
                 if (is_checked){
-                    mRoomsInfo.note=mContext.getString(R.string.has_people);
+                    mRoom.note=mContext.getString(R.string.has_people);
                     et_Note.setText(R.string.has_people)
                     et_Note.setTextColor(Color.GRAY)
 
                 }else{
-                    mRoomsInfo.note=mContext.getString(R.string.nomal);
+                    mRoom.note=mContext.getString(R.string.nomal);
                     et_Note.setText(R.string.nomal)
                     et_Note.setTextColor(Color.BLACK)
                 }
