@@ -1,9 +1,9 @@
 package com.example.checkrooms_app.adapter
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,66 +46,95 @@ import com.example.checkrooms_app.bean.RoomsInfo
 
         val cb_Ishold = holder.cb_ishold;
         val tv_Roomsid = holder.tv_roomsId;
-        val et_Note = holder.et_note;
+        val tv_other = holder.tv_other;
 
         val mRoom:RoomsInfo = mRoomsList?.get(pos)!!;
 
         cb_Ishold.setChecked(mRoom?.isHold);
-        tv_Roomsid.setText(mRoom?.roomsId)
-        et_Note.setText(mRoom?.note!!);
+        tv_Roomsid.setText(mRoom?.roomsId);
+        tv_other.setText(mRoom?.other);
 
         cb_Ishold.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, is_checked: Boolean) {
 
-
                 mRoom?.isHold=is_checked;
 
+                //不可用
                 if (is_checked){
-                    mRoom.note=mContext.getString(R.string.has_people);
-                    et_Note.setText(R.string.has_people)
-                    et_Note.setTextColor(Color.GRAY)
+//                    mRoom.normal=mContext.getString(R.string.has_people);
+                    mRoom.isHold=true;
 
+                    tv_other.setTextColor(Color.GRAY)
+
+                    //可用
                 }else{
-                    mRoom.note=mContext.getString(R.string.nomal);
-                    et_Note.setText(R.string.nomal)
-                    et_Note.setTextColor(Color.BLACK)
+//                    mRoom.normal=mContext.getString(R.string.nomal);
+                    mRoom.isHold=false;
+
+
+
+                    tv_other.setTextColor(Color.BLACK)
                 }
+
+//                et_other.setText(mRoom.getInfoString())
+
+
             }
         })
 
-        et_Note.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(
-                text: CharSequence,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                //text  输入框中改变后的字符串信息
-                //start 输入框中改变后的字符串的起始位置
-                //before 输入框中改变前的字符串的位置 默认为0
-                //count 输入框中改变后的一共输入字符串的数量
-            }
-            override fun beforeTextChanged(
-                text: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-                //text  输入框中改变前的字符串信息
-                //start 输入框中改变前的字符串的起始位置
-                //count 输入框中改变前后的字符串改变数量一般为0
-                //after 输入框中改变后的字符串与起始位置的偏移量
-            }
-            override fun afterTextChanged(edit: Editable) {
-                val roomsNote = et_Note.text.toString();
-                val roomsInfo = mRoomsList?.get(pos);
-                roomsInfo?.note=roomsNote;
+//        var str_other:String=mRoom?.other;
 
-                for (i in mRoomsList!!){
-                    System.out.println(i.toString())
-                }
+        tv_other.setOnClickListener(object:View.OnClickListener{
+            override fun onClick(p0: View?) {
+                val builder = AlertDialog.Builder(mContext);
+                val title = builder.setTitle("请输入备注")
+                val et_other = EditText(mContext);
+                builder.setView(et_other)
+                builder.setPositiveButton(mContext.getString(R.string.Ok),DialogInterface.OnClickListener()
+                { dialogInterface: DialogInterface, i: Int ->
+                    val str_other = et_other.text.toString();
+                    tv_other.setText(str_other)
+                    mRoom.other=str_other;
+
+                })
+                builder.show()
+//                RoomsRvAdapter.no
+//                builder.setPositiveButton(mContext.getString(R.string.Ok),object :Listen)
             }
+
         })
+
+
+//        tv_other.addTextChangedListener(object : TextWatcher {
+//            override fun onTextChanged(
+//                text: CharSequence,
+//                start: Int,
+//                before: Int,
+//                count: Int
+//            ) {
+////                str_other= text.toString();
+//
+//                //text  输入框中改变后的字符串信息
+//                //start 输入框中改变后的字符串的起始位置
+//                //before 输入框中改变前的字符串的位置 默认为0
+//                //count 输入框中改变后的一共输入字符串的数量
+//            }
+//            override fun beforeTextChanged( text: CharSequence, start: Int, count: Int, after: Int) {
+//                //text  输入框中改变前的字符串信息
+//                //start 输入框中改变前的字符串的起始位置
+//                //count 输入框中改变前后的字符串改变数量一般为0
+//                //after 输入框中改变后的字符串与起始位置的偏移量
+//            }
+//            override fun afterTextChanged(edit: Editable) {
+//                val roomsOther = tv_other.text.toString();
+////                val roomsInfo = mRoomsList?.get(pos);
+//
+//                System.out.println(""+pos+"难道调用了："+roomsOther)
+////                System.out.println("难道调用了："+pos)
+//
+//                mRoom?.other=roomsOther;
+//            }
+//        })
     }
 
     override fun getItemId(position: Int): Long {
@@ -118,11 +147,12 @@ import com.example.checkrooms_app.bean.RoomsInfo
 
     inner class RoomsRVHolder(itemView: View,position: Int) : ViewHolder(itemView) {
         var tv_roomsId: TextView
-        var et_note:EditText
+
+        var tv_other:TextView
         var cb_ishold:CheckBox
 
         init {
-            et_note = itemView.findViewById(R.id.et_note)
+            tv_other = itemView.findViewById(R.id.et_note)
             tv_roomsId = itemView.findViewById(R.id.tv_roomsId)
              cb_ishold = itemView.findViewById(R.id.cb_is_hold)
         }
@@ -140,3 +170,4 @@ import com.example.checkrooms_app.bean.RoomsInfo
         }
     }
 }
+

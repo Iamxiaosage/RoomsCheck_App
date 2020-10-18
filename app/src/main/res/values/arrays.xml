@@ -3,27 +3,38 @@
 
     <string-array name="rooms">
         <item>2705</item>
-        <item> 2605</item>
+
+        <item>2605</item>
         <item>2604</item>
         <item>2611</item>
+
         <item>2304</item>
-        <item> 2206</item>
-        <item> 2101</item>
-        <item>2001</item>
+
         <item>2204</item>
-        <item> 1902</item>
+        <item>2206</item>
+
+        <item>2101</item>
+
+        <item>2001</item>
+
+        <item>1902</item>
 
         <item>1801</item>
-        <item> 1703</item>
-        <item> 1602</item>
-        <item> 1103</item>
-        <item> 1002</item>
-        <item>  906</item>
-        <item>  803</item>
-        <item> 414</item>
-        <item> 410</item>
 
+        <item>1703</item>
 
+        <item>1602</item>
+
+        <item>1103</item>
+
+        <item>1002</item>
+
+        <item>906</item>
+
+        <item>803</item>
+
+        <item>414</item>
+        <item>410</item>
     </string-array>
 
 </resources>
