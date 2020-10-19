@@ -25,16 +25,20 @@
 
         <item>1602</item>
 
-        <item>1103</item>
 
         <item>1002</item>
 
-        <item>906</item>
+        <item>1103</item>
 
-        <item>803</item>
+        <item>&#8194;906</item>
 
-        <item>414</item>
-        <item>410</item>
+        <item>&#8194;803</item>
+
+
+
+
+        <item> &#8194;410</item>
+        <item> &#8194;414</item>
     </string-array>
 
 </resources>

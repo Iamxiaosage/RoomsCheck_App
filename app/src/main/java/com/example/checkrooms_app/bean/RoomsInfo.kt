@@ -1,5 +1,8 @@
 package com.example.checkrooms_app.bean
 
+import com.example.checkrooms_app.R
+import kotlinx.android.synthetic.main.item_rv.view.*
+
 /**
  * @author fansx
  * @version $
@@ -10,6 +13,16 @@ package com.example.checkrooms_app.bean
 class RoomsInfo{
     var roomsId:String="000";
     var isHold:Boolean=false;
+    var isNormal:Boolean=true;
+
+    fun get_IsNormal():String{
+        if (isNormal)return "正常；"
+
+        else return "";
+    }
+
+
+//    fun get_Is
 
     fun get_IsHold():String {
         if (isHold)return "有人"
@@ -18,7 +31,7 @@ class RoomsInfo{
 
     var other:String="";
 
-    var normal:String="正常";
+    var normal:String="正常；";
 
 
     fun getInfoString():String{
@@ -27,19 +40,14 @@ class RoomsInfo{
 
     }
 
-//    override fun toString(): String {
-////        return "RoomsInfo('$roomsId', $isHold, '$normal', '$other')"
-//        return "RoomsInfo('$roomsId', $isHold,  '$other')"
-//    }
-
-//    val mMap = mutableMapOf(0 to "秦", 1 to "川", 2 to "小", 3 to "将")
-
 
 
 
     override fun toString(): String {
 //        return if (isHold) roomsId + ":有人" + "\n"
-        return  roomsId + get_IsHold()+other+ "\n";
+//        return  roomsId + get_IsHold()+other+ "\n";
+        return  "$roomsId ： ${get_IsHold()}${get_IsNormal()}$other\n";
+
 
 
 //        else               roomsId + ":" + normal + "\n";
