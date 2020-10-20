@@ -1,7 +1,6 @@
 package com.example.checkrooms_app
 
 import android.app.AlertDialog
-import android.app.PendingIntent.getActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,7 +13,7 @@ import com.example.checkrooms_app.adapter.RoomsRvAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-//datatrue
+//dataerror3
 class MainActivity : AppCompatActivity() {
 
       lateinit var roomsRvAdapter:RoomsRvAdapter;
@@ -43,18 +42,18 @@ class MainActivity : AppCompatActivity() {
 //                for (r2 in roomsList!!)
 
                 var msg: StringBuilder = StringBuilder();
-                var msg_hold: StringBuilder = StringBuilder();
+                var msg_nobody: StringBuilder = StringBuilder();
                 for (r in roomsList!!) {
-                    if (r.isHold){
-                        msg_hold?.append(r)
+                    if (r.isNobody){
+                        msg?.append(r)
 //                        r.append
                     }else{
-                        msg?.append(r)
+                        msg_nobody?.append(r)
 
                     }
 
                 }
-                msg.append(msg_hold);
+                msg.append(msg_nobody);
 
                 editText.setText(msg);
 

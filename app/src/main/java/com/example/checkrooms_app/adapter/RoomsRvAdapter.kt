@@ -108,7 +108,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
 
         tv_other.setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
-                havaEdited(tv_Roomsid, mRoom.isEdited)
+                havaEdited(tv_Roomsid, mRoom)
 
 
                 val builder = AlertDialog.Builder(mContext);
