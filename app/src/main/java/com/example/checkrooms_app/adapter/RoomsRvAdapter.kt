@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
-import android.text.method.TextKeyListener.clear
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,15 +38,18 @@ import com.example.checkrooms_app.bean.RoomsInfo
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomsRVHolder {
         val roomsRVHolder =
             RoomsRVHolder(mLayoutInflater.inflate(R.layout.item_rv, parent, false),viewType);
-//        roomsRVHolder.setIsRecyclable(false);
+        roomsRVHolder.setIsRecyclable(false);
 
         return roomsRVHolder
     }
 
-    private fun havaChecked(tv_Roomsid: TextView) {
+    private fun havaEdited(tv_Roomsid: TextView, roomsInfo: RoomsInfo?) {
+        roomsInfo?.isEdited=true;
         tv_Roomsid.setTextColor(Color.parseColor("#00FF00"));
+
     }
     override fun onBindViewHolder(holder: RoomsRVHolder, pos: Int) {
+
 
         val cb_Ishold = holder.cb_ishold;
         val tv_Roomsid = holder.tv_roomsId;
@@ -58,17 +60,23 @@ import com.example.checkrooms_app.bean.RoomsInfo
 
         Log.v("msg",mRoom.roomsId)
 
-        cb_Ishold.setChecked(mRoom?.isHold);
+        cb_isNormal.setChecked(mRoom?.isNormal);
+        cb_Ishold.setChecked(mRoom?.isNobody);
         tv_Roomsid.setText(mRoom?.roomsId);
         tv_other.setText(mRoom?.other);
 
+        if (mRoom.isEdited){
+            havaEdited(tv_Roomsid,null);
+        }
+
+
         cb_isNormal.setOnCheckedChangeListener { compoundButton, is_checked ->
-            havaChecked(tv_Roomsid)
+            havaEdited(tv_Roomsid, mRoom)
             if (is_checked){
-                mRoom.isNormal=false;
+                mRoom.isNormal=true;
 
             }else{
-                mRoom.isNormal=true;
+                mRoom.isNormal=false;
             }
         }
 
@@ -76,18 +84,18 @@ import com.example.checkrooms_app.bean.RoomsInfo
             override fun onCheckedChanged(p0: CompoundButton?, is_checked: Boolean) {
 //                holder.set
 //                tv_Roomsid.setTextColor(0x00ff00f)
-                havaChecked(tv_Roomsid)
+                havaEdited(tv_Roomsid,mRoom)
 
-                mRoom?.isHold=is_checked;
+                mRoom?.isNobody=is_checked;
                 //不可用
                 if (is_checked){
 //                    mRoom.normal=mContext.getString(R.string.has_people);
-                    mRoom.isHold=true;
+                    mRoom.isNobody=true;
                     tv_other.setTextColor(Color.GRAY)
                     //可用
                 }else{
 //                    mRoom.normal=mContext.getString(R.string.nomal);
-                    mRoom.isHold=false;
+                    mRoom.isNobody=false;
                     tv_other.setTextColor(Color.BLACK)
                 }
 //                et_other.setText(mRoom.getInfoString())
@@ -100,7 +108,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
 
         tv_other.setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
-                havaChecked(tv_Roomsid)
+                havaEdited(tv_Roomsid, mRoom.isEdited)
 
 
                 val builder = AlertDialog.Builder(mContext);
