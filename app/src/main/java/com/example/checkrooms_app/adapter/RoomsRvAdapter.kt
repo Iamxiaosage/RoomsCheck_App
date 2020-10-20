@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
+import android.text.method.TextKeyListener.clear
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,58 +39,81 @@ import com.example.checkrooms_app.bean.RoomsInfo
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomsRVHolder {
         val roomsRVHolder =
             RoomsRVHolder(mLayoutInflater.inflate(R.layout.item_rv, parent, false),viewType);
-        roomsRVHolder.setIsRecyclable(false);
+//        roomsRVHolder.setIsRecyclable(false);
 
         return roomsRVHolder
     }
 
+    private fun havaChecked(tv_Roomsid: TextView) {
+        tv_Roomsid.setTextColor(Color.parseColor("#00FF00"));
+    }
     override fun onBindViewHolder(holder: RoomsRVHolder, pos: Int) {
 
         val cb_Ishold = holder.cb_ishold;
         val tv_Roomsid = holder.tv_roomsId;
         val tv_other = holder.tv_other;
+        val cb_isNormal = holder.cb_isNormal;
 
         val mRoom:RoomsInfo = mRoomsList?.get(pos)!!;
+
+        Log.v("msg",mRoom.roomsId)
 
         cb_Ishold.setChecked(mRoom?.isHold);
         tv_Roomsid.setText(mRoom?.roomsId);
         tv_other.setText(mRoom?.other);
 
+        cb_isNormal.setOnCheckedChangeListener { compoundButton, is_checked ->
+            havaChecked(tv_Roomsid)
+            if (is_checked){
+                mRoom.isNormal=false;
+
+            }else{
+                mRoom.isNormal=true;
+            }
+        }
+
         cb_Ishold.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, is_checked: Boolean) {
+//                holder.set
+//                tv_Roomsid.setTextColor(0x00ff00f)
+                havaChecked(tv_Roomsid)
 
                 mRoom?.isHold=is_checked;
-
                 //不可用
                 if (is_checked){
 //                    mRoom.normal=mContext.getString(R.string.has_people);
                     mRoom.isHold=true;
-
                     tv_other.setTextColor(Color.GRAY)
-
                     //可用
                 }else{
 //                    mRoom.normal=mContext.getString(R.string.nomal);
                     mRoom.isHold=false;
-
-
-
                     tv_other.setTextColor(Color.BLACK)
                 }
-
 //                et_other.setText(mRoom.getInfoString())
-
-
             }
         })
+
+
 
 //        var str_other:String=mRoom?.other;
 
         tv_other.setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
+                havaChecked(tv_Roomsid)
+
+
                 val builder = AlertDialog.Builder(mContext);
                 val title = builder.setTitle("请输入备注")
                 val et_other = EditText(mContext);
+
+                if (!mRoom.other.isEmpty()){
+                    et_other.setText(mRoom.other)
+                }else{
+                    if (pos-1>=0)
+                        et_other.setText(mRoomsList.get(pos-1).other);
+                }
+
                 builder.setView(et_other)
                 builder.setPositiveButton(mContext.getString(R.string.Ok),DialogInterface.OnClickListener()
                 { dialogInterface: DialogInterface, i: Int ->
@@ -97,14 +122,16 @@ import com.example.checkrooms_app.bean.RoomsInfo
                     mRoom.other=str_other;
 
                 })
+//                builder.setNeutralButton(mContext.getString(R.string.clear),DialogInterface.OnClickListener(){ dialogInterface: DialogInterface, i: Int ->
+//                    et_other.setText("");
+//
+//                })
+
                 builder.show()
-//                RoomsRvAdapter.no
-//                builder.setPositiveButton(mContext.getString(R.string.Ok),object :Listen)
+
             }
 
         })
-
-
 //        tv_other.addTextChangedListener(object : TextWatcher {
 //            override fun onTextChanged(
 //                text: CharSequence,
@@ -137,6 +164,8 @@ import com.example.checkrooms_app.bean.RoomsInfo
 //        })
     }
 
+
+
     override fun getItemId(position: Int): Long {
         return super.getItemId(position)
     }
@@ -150,11 +179,13 @@ import com.example.checkrooms_app.bean.RoomsInfo
 
         var tv_other:TextView
         var cb_ishold:CheckBox
+        var cb_isNormal:CheckBox
 
         init {
             tv_other = itemView.findViewById(R.id.et_note)
             tv_roomsId = itemView.findViewById(R.id.tv_roomsId)
              cb_ishold = itemView.findViewById(R.id.cb_is_hold)
+            cb_isNormal = itemView.findViewById(R.id.cb_is_normal)
         }
     }
 
@@ -166,6 +197,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
         for (i in roomsArray) {
             val room = RoomsInfo();
             room.roomsId=i
+            System.out.println("遍历："+i)
             mRoomsList.add(room)
         }
     }

@@ -1,10 +1,14 @@
 <resources>
-    <string name="app_name">checkrooms_app</string>
+    <string name="app_name">巡检小助手</string>
     <string name="tmp">temp</string>
     <string name="room_id">会议号</string>
-    <string name="is_hold">是否可用</string>
+    <string name="is_hold">可用</string>
     <string name="note">备注</string>
     <string name="has_people">有人</string>
     <string name="nomal">正常</string>
     <string name="Ok">确定</string>
+    <string name="is_normal">正常</string>
+    <string name="cb_is_normal">正常</string>
+    <string name="clear">清空</string>
+
 </resources>

@@ -28,6 +28,16 @@
 
     <TextView
         android:textColor="@color/black"
+        android:text="@string/is_normal"
+        android:id="@+id/item_is_normal"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textSize="@dimen/thirty_sp"
+        android:layout_height="wrap_content"></TextView>
+
+
+    <TextView
+        android:textColor="@color/black"
         android:text="@string/note"
         android:layout_weight="2"
         android:id="@+id/item_note"

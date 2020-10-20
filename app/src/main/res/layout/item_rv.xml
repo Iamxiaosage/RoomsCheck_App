@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
+
     android:orientation="horizontal">
 
 
@@ -12,24 +13,32 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="#FFFFFF"
         android:gravity="center_horizontal"
         android:padding="@dimen/eight_dp"
         android:text="@string/tmp"
-        android:textSize="@dimen/thirty_sp" />
+        android:textSize="@dimen/thirty_sp"  />
 
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/cb_is_hold"
-
         style="@style/CheckBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="#FFFFFF"></androidx.appcompat.widget.AppCompatCheckBox>
+        >
+    </androidx.appcompat.widget.AppCompatCheckBox>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_is_normal"
+        style="@style/CheckBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </androidx.appcompat.widget.AppCompatCheckBox>
 
 
     <TextView
+        android:hint="请点击输入文本："
         android:layout_weight="2"
         android:id="@+id/et_note"
         android:layout_width="0dp"
