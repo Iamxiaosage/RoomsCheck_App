@@ -26,7 +26,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
  */
 
 
- class RoomsRvAdapter(context: Context) : RecyclerView.Adapter<RoomsRvAdapter.RoomsRVHolder?>() {
+ class RoomsRvAdapter(context: Context,roomList:ArrayList<RoomsInfo>?) : RecyclerView.Adapter<RoomsRvAdapter.RoomsRVHolder?>() {
     private val mLayoutInflater: LayoutInflater
     private val mContext: Context
     private val mRoomsList: ArrayList<RoomsInfo>?
@@ -51,7 +51,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
     override fun onBindViewHolder(holder: RoomsRVHolder, pos: Int) {
 
 
-        val cb_Ishold = holder.cb_ishold;
+        val cb_Isnobody = holder.cb_ishold;
         val tv_Roomsid = holder.tv_roomsId;
         val tv_other = holder.tv_other;
         val cb_isNormal = holder.cb_isNormal;
@@ -61,7 +61,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
         Log.v("msg",mRoom.roomsId)
 
         cb_isNormal.setChecked(mRoom?.isNormal);
-        cb_Ishold.setChecked(mRoom?.isNobody);
+        cb_Isnobody.setChecked(mRoom?.isNobody);
         tv_Roomsid.setText(mRoom?.roomsId);
         tv_other.setText(mRoom?.other);
 
@@ -72,32 +72,35 @@ import com.example.checkrooms_app.bean.RoomsInfo
 
         cb_isNormal.setOnCheckedChangeListener { compoundButton, is_checked ->
             havaEdited(tv_Roomsid, mRoom)
-            if (is_checked){
-                mRoom.isNormal=true;
+            mRoom.isNormal=is_checked;
 
-            }else{
-                mRoom.isNormal=false;
-            }
+//            if (is_checked){
+//                mRoom.isNormal=true;
+//
+//            }else{
+//                mRoom.isNormal=false;
+//            }
         }
 
-        cb_Ishold.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
+        cb_Isnobody.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, is_checked: Boolean) {
 //                holder.set
-//                tv_Roomsid.setTextColor(0x00ff00f)
                 havaEdited(tv_Roomsid,mRoom)
 
                 mRoom?.isNobody=is_checked;
-                //不可用
-                if (is_checked){
-//                    mRoom.normal=mContext.getString(R.string.has_people);
-                    mRoom.isNobody=true;
-                    tv_other.setTextColor(Color.GRAY)
-                    //可用
-                }else{
-//                    mRoom.normal=mContext.getString(R.string.nomal);
-                    mRoom.isNobody=false;
-                    tv_other.setTextColor(Color.BLACK)
+                if (!is_checked){
+                    mRoom.isNormal=false;
+                    cb_isNormal.setChecked(false);
+
                 }
+
+                //不可用
+//                if (is_checked){
+//                    mRoom.isNobody=true;
+//                    //可用
+//                }else{
+//                    mRoom.isNobody=false;
+//                }
 //                et_other.setText(mRoom.getInfoString())
             }
         })
@@ -130,10 +133,6 @@ import com.example.checkrooms_app.bean.RoomsInfo
                     mRoom.other=str_other;
 
                 })
-//                builder.setNeutralButton(mContext.getString(R.string.clear),DialogInterface.OnClickListener(){ dialogInterface: DialogInterface, i: Int ->
-//                    et_other.setText("");
-//
-//                })
 
                 builder.show()
 
@@ -200,14 +199,21 @@ import com.example.checkrooms_app.bean.RoomsInfo
     init {
         mLayoutInflater = LayoutInflater.from(context)
         mContext = context
-        val roomsArray = mContext.resources.getStringArray(R.array.rooms);
-        mRoomsList = ArrayList()
-        for (i in roomsArray) {
-            val room = RoomsInfo();
-            room.roomsId=i
-            System.out.println("遍历："+i)
-            mRoomsList.add(room)
+
+        if (roomList.isNullOrEmpty()){
+            val roomsArray = mContext.resources.getStringArray(R.array.rooms);
+            mRoomsList = ArrayList()
+            for (i in roomsArray) {
+                val room = RoomsInfo();
+                room.roomsId=i
+                System.out.println("遍历："+i)
+                mRoomsList.add(room)
+            }
+        }else{
+            mRoomsList=roomList;
         }
+
+
     }
 }
 

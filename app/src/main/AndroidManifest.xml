@@ -3,7 +3,7 @@
     package="com.example.checkrooms_app">
 <!--    <permission android:name=""-->
 <!--<permission android:name="android.permission.read"-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.NFC"></uses-permission>
     <application
         android:allowBackup="true"

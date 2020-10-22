@@ -1,5 +1,7 @@
 package com.example.checkrooms_app.bean
 
+import java.io.Serializable
+
 /**
  * @author fansx
  * @version $
@@ -7,7 +9,7 @@ package com.example.checkrooms_app.bean
  * @updateAuthor $
  * @updateDes
  */
-class RoomsInfo{
+class RoomsInfo :Serializable{
     var roomsId:String="000";
     var isNobody:Boolean=true;
     var isNormal:Boolean=true;

@@ -4,4 +4,6 @@
         android:title="导出"/>
     <item android:id="@+id/clear"
         android:title="清空"/>
+    <item android:id="@+id/input"
+        android:title="导入"/>
 </menu>
