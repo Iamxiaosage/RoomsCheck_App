@@ -30,6 +30,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
     private val mLayoutInflater: LayoutInflater
     private val mContext: Context
     private val mRoomsList: ArrayList<RoomsInfo>?
+    private val timeIndex=0;
 
      fun getRoomsList() :ArrayList<RoomsInfo>?{
         return mRoomsList;
@@ -44,41 +45,52 @@ import com.example.checkrooms_app.bean.RoomsInfo
     }
 
     private fun havaEdited(tv_Roomsid: TextView, roomsInfo: RoomsInfo?) {
-        roomsInfo?.isEdited=true;
+        Log.e("test","下标："+timeIndex);
+        try {
+            roomsInfo?.isEdited?.set(timeIndex, true);
+
+        }catch (e:Exception){
+            Log.e("test","异常："+e.toString());
+        }
         tv_Roomsid.setTextColor(Color.parseColor("#00FF00"));
 
     }
     override fun onBindViewHolder(holder: RoomsRVHolder, pos: Int) {
 
 
-        val cb_Isnobody = holder.cb_ishold;
-        val tv_Roomsid = holder.tv_roomsId;
-        val tv_other = holder.tv_other;
-        val cb_isNormal = holder.cb_isNormal;
+        val cb_Isnobody = holder.cb_ishold_am;
+        val tv_Roomsid = holder.tv_roomsId_am;
+        val tv_other = holder.tv_other_am;
+        val cb_isNormal = holder.cb_isNormal_am;
+
+//        val cb_Isnobody = holder.cb_ishold_am;
+//        val tv_Roomsid = holder.tv_roomsId_am;
+//        val tv_other = holder.tv_other_am;
+//        val cb_isNormal = holder.cb_isNormal_am;
 
         val mRoom:RoomsInfo = mRoomsList?.get(pos)!!;
 
-        Log.v("msg",mRoom.roomsId)
+        Log.v("msg",mRoom.roomsId[timeIndex])
 
-        cb_isNormal.setChecked(mRoom?.isNormal);
-        cb_Isnobody.setChecked(mRoom?.isNobody);
-        tv_Roomsid.setText(mRoom?.roomsId);
-        tv_other.setText(mRoom?.other);
+        cb_isNormal.setChecked(mRoom?.isNormal[timeIndex]);
+        cb_Isnobody.setChecked(mRoom?.isNobody[timeIndex]);
+        tv_Roomsid.setText(mRoom?.roomsId[timeIndex]);
+        tv_other.setText(mRoom?.other[timeIndex]);
 
-        if (mRoom.isEdited){
+        if (mRoom.isEdited[timeIndex]){
             havaEdited(tv_Roomsid,null);
         }
 
 
         cb_isNormal.setOnCheckedChangeListener { compoundButton, is_checked ->
             havaEdited(tv_Roomsid, mRoom)
-            mRoom.isNormal=is_checked;
+            mRoom.isNormal[timeIndex]=is_checked;
 
 //            if (is_checked){
 //                mRoom.isNormal=true;
 //
 //            }else{
-//                mRoom.isNormal=false;
+//                mRoom.isNormal=false;dd
 //            }
         }
 
@@ -87,9 +99,9 @@ import com.example.checkrooms_app.bean.RoomsInfo
 //                holder.set
                 havaEdited(tv_Roomsid,mRoom)
 
-                mRoom?.isNobody=is_checked;
+                mRoom?.isNobody[timeIndex]=is_checked;
                 if (!is_checked){
-                    mRoom.isNormal=false;
+                    mRoom.isNormal[timeIndex]=false;
                     cb_isNormal.setChecked(false);
 
                 }
@@ -119,10 +131,10 @@ import com.example.checkrooms_app.bean.RoomsInfo
                 val et_other = EditText(mContext);
 
                 if (!mRoom.other.isEmpty()){
-                    et_other.setText(mRoom.other)
+                    et_other.setText(mRoom.other[timeIndex])
                 }else{
                     if (pos-1>=0)
-                        et_other.setText(mRoomsList.get(pos-1).other);
+                        et_other.setText(mRoomsList.get(pos-1).other[timeIndex]);
                 }
 
                 builder.setView(et_other)
@@ -130,7 +142,7 @@ import com.example.checkrooms_app.bean.RoomsInfo
                 { dialogInterface: DialogInterface, i: Int ->
                     val str_other = et_other.text.toString();
                     tv_other.setText(str_other)
-                    mRoom.other=str_other;
+                    mRoom.other[timeIndex]=str_other;
 
                 })
 
@@ -182,17 +194,26 @@ import com.example.checkrooms_app.bean.RoomsInfo
     }
 
     inner class RoomsRVHolder(itemView: View,position: Int) : ViewHolder(itemView) {
-        var tv_roomsId: TextView
+        var tv_roomsId_am: TextView
 
-        var tv_other:TextView
-        var cb_ishold:CheckBox
-        var cb_isNormal:CheckBox
+        var tv_other_am:TextView
+        var cb_ishold_am:CheckBox
+        var cb_isNormal_am:CheckBox
+
+        var tv_other_pm:TextView
+        var cb_ishold_pm:CheckBox
+        var cb_isNormal_pm:CheckBox
 
         init {
-            tv_other = itemView.findViewById(R.id.et_note)
-            tv_roomsId = itemView.findViewById(R.id.tv_roomsId)
-             cb_ishold = itemView.findViewById(R.id.cb_is_hold)
-            cb_isNormal = itemView.findViewById(R.id.cb_is_normal)
+            tv_other_am = itemView.findViewById(R.id.et_note_am)
+            tv_roomsId_am = itemView.findViewById(R.id.tv_roomsId_am)
+             cb_ishold_am = itemView.findViewById(R.id.cb_is_hold_am)
+            cb_isNormal_am = itemView.findViewById(R.id.cb_is_normal_am)
+
+            tv_other_pm = itemView.findViewById(R.id.et_note_pm)
+//            tv_roomsId_pm = itemView.findViewById(R.id.tv_roomsId_pm)
+            cb_ishold_pm = itemView.findViewById(R.id.cb_is_hold_pm)
+            cb_isNormal_pm = itemView.findViewById(R.id.cb_is_normal_pm)
         }
     }
 
@@ -205,14 +226,13 @@ import com.example.checkrooms_app.bean.RoomsInfo
             mRoomsList = ArrayList()
             for (i in roomsArray) {
                 val room = RoomsInfo();
-                room.roomsId=i
+                room.roomsId[timeIndex]=i
                 System.out.println("遍历："+i)
                 mRoomsList.add(room)
             }
         }else{
             mRoomsList=roomList;
         }
-
 
     }
 }

@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
 
-    android:orientation="horizontal">
-
-
-    <TextView
-        android:id="@+id/tv_roomsId"
-        android:layout_width="0dp"
+<!--<merge xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:padding="@dimen/eight_dp"
-        android:text="@string/tmp"
-        android:textSize="@dimen/thirty_sp"  />
+        android:padding="5dp"
+        android:orientation="vertical">
+
+    <include layout="@layout/item_rv_pm"/>
+    <include layout="@layout/item_rv_am"/>
 
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/cb_is_hold"
-        style="@style/CheckBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-    </androidx.appcompat.widget.AppCompatCheckBox>
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/cb_is_normal"
-        style="@style/CheckBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </androidx.appcompat.widget.AppCompatCheckBox>
+<!--    <TextView-->
+<!--        android:id="@+id/tv_roomsId"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:padding="@dimen/eight_dp"-->
+<!--        android:text="@string/tmp"-->
+<!--        android:textSize="@dimen/thirty_sp"  />-->
 
 
-    <TextView
-        android:hint="请点击输入文本："
-        android:layout_weight="2"
-        android:id="@+id/et_note"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"></TextView>
+<!--    <androidx.appcompat.widget.AppCompatCheckBox-->
+<!--        android:id="@+id/cb_is_hold"-->
+<!--        style="@style/CheckBox"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        >-->
+<!--    </androidx.appcompat.widget.AppCompatCheckBox>-->
+
+<!--    <androidx.appcompat.widget.AppCompatCheckBox-->
+<!--        android:id="@+id/cb_is_normal"-->
+<!--        style="@style/CheckBox"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1">-->
+<!--    </androidx.appcompat.widget.AppCompatCheckBox>-->
 
 
-</LinearLayout>
+<!--    <TextView-->
+<!--        android:hint="请点击输入文本："-->
+<!--        android:layout_weight="2"-->
+<!--        android:id="@+id/et_note"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"></TextView>-->
+    </LinearLayout>
+<!--</merge>-->

@@ -129,12 +129,16 @@ class MainActivity : AppCompatActivity() {
                 var msg: StringBuilder = StringBuilder();
                 var msg_nobody: StringBuilder = StringBuilder();
                 for (r in roomsList!!) {
-                    if (r.isNobody) {
-                        msg?.append(r)
+                    val isAm=true;
+                    if (isAm){
+                        if (r.isNobody[0]) {
+                            msg?.append(r)
 
-                    } else {
-                        msg_nobody?.append(r)
+                        } else {
+                            msg_nobody?.append(r)
+                        }
                     }
+
                 }
                 msg.append(msg_nobody);
 
