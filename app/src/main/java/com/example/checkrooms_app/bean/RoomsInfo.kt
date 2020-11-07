@@ -15,6 +15,15 @@ class RoomsInfo :Serializable{
     var isNormal:Boolean=true;
     var isEdited:Boolean=false;
 
+    fun get_Other():String{
+        if (other.isNullOrEmpty()){
+            return ""
+
+        }else{
+            return "($other)";
+        }
+    }
+
     fun get_IsNormal():String{
         if (isNormal)return "正常；"
 
@@ -44,9 +53,9 @@ class RoomsInfo :Serializable{
 
 
     override fun toString(): String {
-//        return if (isHold) roomsId + ":有人" + "\n"
-//        return  roomsId + get_IsHold()+other+ "\n";
-        return  "$roomsId ： ${get_Isnobody()}${get_IsNormal()}$other\n";
+
+//        return  "$roomsId ： ${get_Isnobody()}${get_IsNormal()}$other";
+        return  "$roomsId ${get_Other()}\t";
 
 
 

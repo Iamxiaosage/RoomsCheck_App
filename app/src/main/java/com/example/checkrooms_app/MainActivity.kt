@@ -2,13 +2,13 @@ package com.example.checkrooms_app
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.NonNull
@@ -30,9 +30,11 @@ class MainActivity : AppCompatActivity() {
     var path: String =
         Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/people.txt"
 
+    var mContext: Context?=null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mContext = this@MainActivity
         initView();
 
         checkReadExternalStoragePermission();
@@ -42,12 +44,18 @@ class MainActivity : AppCompatActivity() {
 
     public fun checkReadExternalStoragePermission()   {
         if (Build.VERSION.SDK_INT>=23)       {
-            var request:Int= ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            var request:Int= ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            );
             if (request!= PackageManager.PERMISSION_GRANTED)//缺少权限，进行权限申请
             {
-                ActivityCompat.requestPermissions(this, arrayOf(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.NFC),123);
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.NFC
+                    ), 123
+                );
                 return;//
             }
             else
@@ -60,7 +68,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override public fun onRequestPermissionsResult(requestCode:Int, @NonNull permissions:Array<String>, grantResults:IntArray)
+    override public fun onRequestPermissionsResult(
+        requestCode: Int,
+        @NonNull permissions: Array<String>,
+        grantResults: IntArray
+    )
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 123) {            //当然权限多了，建议使用Switch，不必纠结于此
@@ -84,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             for (r in mRoomList){
                 print("serialzable:${r.toString()}")
             }
-        }catch (e:java.lang.Exception){
+        }catch (e: java.lang.Exception){
             e.printStackTrace()
         }
         setRoomRv(mRoomList);
@@ -126,19 +138,41 @@ class MainActivity : AppCompatActivity() {
 
                 val roomsList = roomsRvAdapter.getRoomsList();
 
-                var msg: StringBuilder = StringBuilder();
-                var msg_nobody: StringBuilder = StringBuilder();
+                var msg_noraml: StringBuilder = StringBuilder();
+                var msg_inmetting: StringBuilder = StringBuilder();
+                var msg_inError: StringBuilder = StringBuilder();
+
+
                 for (r in roomsList!!) {
-                    if (r.isNobody) {
-                        msg?.append(r)
-
+                    if (r.isNormal) {
+                        msg_noraml?.append(r);
                     } else {
-                        msg_nobody?.append(r)
-                    }
-                }
-                msg.append(msg_nobody);
+                        msg_inError?.append(r);
 
-                editText.setText(msg);
+                    }
+
+                    if (!r.isNobody) {
+                        msg_inmetting?.append(r);
+                    }
+
+
+//                    if (r.isNobody) {
+//                        msg_noraml?.append(r)
+//
+//                    } else {
+//                        msg_inmetting?.append(r)
+//                    }
+                }
+//                msg_noraml.append(msg_inmetting);
+
+//                editText.setText(msg_noraml);
+
+//                val string = getStrFromResource(R.string.nomal)
+                editText.setText(
+                    getStrFromResource(R.string.nomal) + "：" + msg_noraml + "\n"
+                            + getStrFromResource(R.string.meeting) + "：" + msg_inmetting + "\n"
+                            + getStrFromResource(R.string.Error)+ "：" + msg_inError
+                );
 
                 save(roomsList);
 
@@ -146,6 +180,33 @@ class MainActivity : AppCompatActivity() {
                 builder.setView(editText);
                 builder.show();
             }
+//            R.id.show -> {
+//                val builder = AlertDialog.Builder(this);
+//                builder.setTitle("rooms巡检信息：")
+//                val editText = EditText(this);
+//
+//                val roomsList = roomsRvAdapter.getRoomsList();
+//
+//                var msg: StringBuilder = StringBuilder();
+//                var msg_nobody: StringBuilder = StringBuilder();
+//                for (r in roomsList!!) {
+//                    if (r.isNobody) {
+//                        msg?.append(r)
+//
+//                    } else {
+//                        msg_nobody?.append(r)
+//                    }
+//                }
+//                msg.append(msg_nobody);
+//
+//                editText.setText(msg);
+//
+//                save(roomsList);
+//
+//
+//                builder.setView(editText);
+//                builder.show();
+//            }
             R.id.clear -> {
                 Toast.makeText(this@MainActivity, "清空", Toast.LENGTH_SHORT).show()
             }
@@ -156,6 +217,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    private fun getStrFromResource(res: Int): String? {
+        val string = mContext?.resources?.getString(res)
+        return string
+    }
+
     private fun initView() {
         setContentView(R.layout.activity_main)
 
@@ -163,13 +229,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setRoomRv(roomList:ArrayList<RoomsInfo>?) {
+    private fun setRoomRv(roomList: ArrayList<RoomsInfo>?) {
         val linearLayoutManager = LinearLayoutManager(this);
         rv_rooms.setLayoutManager(linearLayoutManager);
 
         rv_rooms.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        roomsRvAdapter = RoomsRvAdapter(this,roomList);
+        roomsRvAdapter = RoomsRvAdapter(this, roomList);
         rv_rooms.setAdapter(roomsRvAdapter);
     }
 }

@@ -10,5 +10,7 @@
     <string name="is_normal">正常</string>
     <string name="cb_is_normal">正常</string>
     <string name="clear">清空</string>
+    <string name="meeting">开会中</string>
+    <string name="Error">设备出现问题</string>
 
 </resources>
