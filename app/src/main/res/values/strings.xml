@@ -2,7 +2,11 @@
     <string name="app_name">巡检小助手</string>
     <string name="tmp">temp</string>
     <string name="room_id">会议号</string>
+<<<<<<< HEAD
     <string name="is_hold">可用</string>
+=======
+    <string name="is_nobody">没人</string>
+>>>>>>> fd961cca89bd3aaf227b7655d6bd0c75ae0d1ea7
     <string name="note">备注</string>
     <string name="has_people">有人</string>
     <string name="nomal">正常</string>

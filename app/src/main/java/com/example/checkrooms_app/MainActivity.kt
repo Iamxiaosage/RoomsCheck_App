@@ -1,7 +1,10 @@
 package com.example.checkrooms_app
 
 import android.app.AlertDialog
+<<<<<<< HEAD
 import android.app.PendingIntent.getActivity
+=======
+>>>>>>> fd961cca89bd3aaf227b7655d6bd0c75ae0d1ea7
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,9 +15,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checkrooms_app.adapter.RoomsRvAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+<<<<<<< HEAD
+
+=======
+>>>>>>> fd961cca89bd3aaf227b7655d6bd0c75ae0d1ea7
 
 
-//datatrue
+//dataerror3
 class MainActivity : AppCompatActivity() {
 
       lateinit var roomsRvAdapter:RoomsRvAdapter;
@@ -43,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 //                for (r2 in roomsList!!)
 
                 var msg: StringBuilder = StringBuilder();
+<<<<<<< HEAD
                 var msg_hold: StringBuilder = StringBuilder();
                 for (r in roomsList!!) {
                     if (r.isHold){
@@ -50,11 +58,24 @@ class MainActivity : AppCompatActivity() {
 //                        r.append
                     }else{
                         msg?.append(r)
+=======
+                var msg_nobody: StringBuilder = StringBuilder();
+                for (r in roomsList!!) {
+                    if (r.isNobody){
+                        msg?.append(r)
+//                        r.append
+                    }else{
+                        msg_nobody?.append(r)
+>>>>>>> fd961cca89bd3aaf227b7655d6bd0c75ae0d1ea7
 
                     }
 
                 }
+<<<<<<< HEAD
                 msg.append(msg_hold);
+=======
+                msg.append(msg_nobody);
+>>>>>>> fd961cca89bd3aaf227b7655d6bd0c75ae0d1ea7
 
                 editText.setText(msg);
 

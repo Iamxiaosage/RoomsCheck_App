@@ -18,7 +18,7 @@
 
     <TextView
         android:textColor="@color/black"
-        android:text="@string/is_hold"
+        android:text="@string/is_nobody"
         android:id="@+id/item_is_hold"
         android:layout_width="0dp"
         android:layout_weight="1"
