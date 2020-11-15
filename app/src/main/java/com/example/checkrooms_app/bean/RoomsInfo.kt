@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_rv.view.*
  * @updateAuthor $
  * @updateDes
  */
-//git test
+//git test11111
 class RoomsInfo{
     var roomsId:String="000";
     var isHold:Boolean=false;
